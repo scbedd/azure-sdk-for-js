@@ -83,7 +83,7 @@ export interface NotificationSettings {
   webhookUrl?: string;
   /**
    * @member {string} [emailRecipient] The email recipient to send
-   * notifications to (can be a list of semi-colon seperated email addresses).
+   * notifications to (can be a list of semi-colon separated email addresses).
    */
   emailRecipient?: string;
   /**
@@ -290,7 +290,7 @@ export interface NotificationSettingsFragment {
   webhookUrl?: string;
   /**
    * @member {string} [emailRecipient] The email recipient to send
-   * notifications to (can be a list of semi-colon seperated email addresses).
+   * notifications to (can be a list of semi-colon separated email addresses).
    */
   emailRecipient?: string;
   /**
@@ -885,7 +885,7 @@ export interface AttachDiskProperties {
 export interface AttachNewDataDiskOptions {
   /**
    * @member {number} [diskSizeGiB] Size of the disk to be attached in
-   * GibiBytes.
+   * Gibibytes.
    */
   diskSizeGiB?: number;
   /**
@@ -908,7 +908,7 @@ export interface AttachNewDataDiskOptions {
 export interface AttachNewDataDiskOptionsFragment {
   /**
    * @member {number} [diskSizeGiB] Size of the disk to be attached in
-   * GibiBytes.
+   * Gibibytes.
    */
   diskSizeGiB?: number;
   /**
@@ -1631,7 +1631,7 @@ export interface Disk extends Resource {
    */
   diskType?: StorageType;
   /**
-   * @member {number} [diskSizeGiB] The size of the disk in GibiBytes.
+   * @member {number} [diskSizeGiB] The size of the disk in Gibibytes.
    */
   diskSizeGiB?: number;
   /**
@@ -1695,7 +1695,7 @@ export interface DiskFragment extends UpdateResource {
    */
   diskType?: StorageType;
   /**
-   * @member {number} [diskSizeGiB] The size of the disk in GibiBytes.
+   * @member {number} [diskSizeGiB] The size of the disk in Gibibytes.
    */
   diskSizeGiB?: number;
   /**
@@ -2948,7 +2948,7 @@ export interface GenerateUploadUriParameter {
 /**
  * @interface
  * An interface representing GenerateUploadUriResponse.
- * Reponse body for generating an upload URI.
+ * Response body for generating an upload URI.
  *
  */
 export interface GenerateUploadUriResponse {
@@ -3877,7 +3877,7 @@ export interface NotificationChannel extends Resource {
   webHookUrl?: string;
   /**
    * @member {string} [emailRecipient] The email recipient to send
-   * notifications to (can be a list of semi-colon seperated email addresses).
+   * notifications to (can be a list of semi-colon separated email addresses).
    */
   emailRecipient?: string;
   /**
@@ -3931,7 +3931,7 @@ export interface NotificationChannelFragment extends UpdateResource {
   webHookUrl?: string;
   /**
    * @member {string} [emailRecipient] The email recipient to send
-   * notifications to (can be a list of semi-colon seperated email addresses).
+   * notifications to (can be a list of semi-colon separated email addresses).
    */
   emailRecipient?: string;
   /**
