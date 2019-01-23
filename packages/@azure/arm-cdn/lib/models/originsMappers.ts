@@ -9,7 +9,6 @@
  */
 
 export {
-  discriminators,
   OriginListResult,
   Origin,
   TrackedResource,
@@ -23,17 +22,7 @@ export {
   DeepCreatedOrigin,
   Endpoint,
   GeoFilter,
-  EndpointPropertiesUpdateParametersDeliveryPolicy,
-  DeliveryRule,
-  DeliveryRuleAction,
-  DeliveryRuleCondition,
   EndpointUpdateParameters,
-  DeliveryRuleUrlPathCondition,
-  UrlPathConditionParameters,
-  DeliveryRuleUrlFileExtensionCondition,
-  UrlFileExtensionConditionParameters,
-  DeliveryRuleCacheExpirationAction,
-  CacheExpirationActionParameters,
   ProxyResource,
   CustomDomain,
   EdgeNode,

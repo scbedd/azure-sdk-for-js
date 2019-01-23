@@ -25,7 +25,7 @@ export interface Sku {
   /**
    * @member {SkuName} [name] Name of the pricing tier. Possible values
    * include: 'Standard_Verizon', 'Premium_Verizon', 'Custom_Verizon',
-   * 'Standard_Akamai', 'Standard_ChinaCdn', 'Standard_Microsoft'
+   * 'Standard_Akamai', 'Standard_ChinaCdn'
    */
   name?: SkuName;
 }
@@ -201,7 +201,7 @@ export interface Endpoint extends TrackedResource {
   originHostHeader?: string;
   /**
    * @member {string} [originPath] A directory path on the origin that CDN can
-   * use to retreive content from, e.g. contoso.cloudapp.net/originpath.
+   * use to retrieve content from, e.g. contoso.cloudapp.net/originpath.
    */
   originPath?: string;
   /**
@@ -255,19 +255,13 @@ export interface Endpoint extends TrackedResource {
   probePath?: string;
   /**
    * @member {GeoFilter[]} [geoFilters] List of rules defining the user's geo
-   * access within a CDN endpoint. Each geo filter defines an acess rule to a
+   * access within a CDN endpoint. Each geo filter defines an access rule to a
    * specified path or content, e.g. block APAC for path /pictures/
    */
   geoFilters?: GeoFilter[];
   /**
-   * @member {EndpointPropertiesUpdateParametersDeliveryPolicy}
-   * [deliveryPolicy] A policy that specifies the delivery rules to be used for
-   * an endpoint.
-   */
-  deliveryPolicy?: EndpointPropertiesUpdateParametersDeliveryPolicy;
-  /**
    * @member {string} [hostName] The host name of the endpoint structured as
-   * {endpointName}.{DNSZone}, e.g. consoto.azureedge.net
+   * {endpointName}.{DNSZone}, e.g. contoso.azureedge.net
    * **NOTE: This property will not be serialized. It can only be populated by
    * the server.**
    */
@@ -318,86 +312,6 @@ export interface GeoFilter {
 }
 
 /**
- * Contains the possible cases for DeliveryRuleAction.
- */
-export type DeliveryRuleActionUnion = DeliveryRuleAction | DeliveryRuleCacheExpirationAction;
-
-/**
- * @interface
- * An interface representing DeliveryRuleAction.
- * An action for the delivery rule.
- *
- */
-export interface DeliveryRuleAction {
-  /**
-   * @member {string} name Polymorphic Discriminator
-   */
-  name: "DeliveryRuleAction";
-}
-
-/**
- * Contains the possible cases for DeliveryRuleCondition.
- */
-export type DeliveryRuleConditionUnion = DeliveryRuleCondition | DeliveryRuleUrlPathCondition | DeliveryRuleUrlFileExtensionCondition;
-
-/**
- * @interface
- * An interface representing DeliveryRuleCondition.
- * A condition for the delivery rule.
- *
- */
-export interface DeliveryRuleCondition {
-  /**
-   * @member {string} name Polymorphic Discriminator
-   */
-  name: "DeliveryRuleCondition";
-}
-
-/**
- * @interface
- * An interface representing DeliveryRule.
- * A rule that specifies a set of actions and conditions
- *
- */
-export interface DeliveryRule {
-  /**
-   * @member {number} order The order in which the rules are applied for the
-   * endpoint. Possible values {0,1,2,3,………}. A rule with a lesser order will
-   * be applied before a rule with a greater order. Rule with order 0 is a
-   * special rule. It does not require any condition and actions listed in it
-   * will always be applied.
-   */
-  order: number;
-  /**
-   * @member {DeliveryRuleActionUnion[]} actions A list of actions that are
-   * executed when all the conditions of a rule are satisfied.
-   */
-  actions: DeliveryRuleActionUnion[];
-  /**
-   * @member {DeliveryRuleConditionUnion[]} [conditions] A list of conditions
-   * that must be matched for the actions to be executed
-   */
-  conditions?: DeliveryRuleConditionUnion[];
-}
-
-/**
- * @interface
- * An interface representing EndpointPropertiesUpdateParametersDeliveryPolicy.
- * A policy that specifies the delivery rules to be used for an endpoint.
- *
- */
-export interface EndpointPropertiesUpdateParametersDeliveryPolicy {
-  /**
-   * @member {string} [description] User-friendly description of the policy.
-   */
-  description?: string;
-  /**
-   * @member {DeliveryRule[]} rules A list of the delivery rules.
-   */
-  rules: DeliveryRule[];
-}
-
-/**
  * @interface
  * An interface representing EndpointUpdateParameters.
  * Properties required to create or update an endpoint.
@@ -419,7 +333,7 @@ export interface EndpointUpdateParameters extends BaseResource {
   originHostHeader?: string;
   /**
    * @member {string} [originPath] A directory path on the origin that CDN can
-   * use to retreive content from, e.g. contoso.cloudapp.net/originpath.
+   * use to retrieve content from, e.g. contoso.cloudapp.net/originpath.
    */
   originPath?: string;
   /**
@@ -473,122 +387,10 @@ export interface EndpointUpdateParameters extends BaseResource {
   probePath?: string;
   /**
    * @member {GeoFilter[]} [geoFilters] List of rules defining the user's geo
-   * access within a CDN endpoint. Each geo filter defines an acess rule to a
+   * access within a CDN endpoint. Each geo filter defines an access rule to a
    * specified path or content, e.g. block APAC for path /pictures/
    */
   geoFilters?: GeoFilter[];
-  /**
-   * @member {EndpointPropertiesUpdateParametersDeliveryPolicy}
-   * [deliveryPolicy] A policy that specifies the delivery rules to be used for
-   * an endpoint.
-   */
-  deliveryPolicy?: EndpointPropertiesUpdateParametersDeliveryPolicy;
-}
-
-/**
- * @interface
- * An interface representing UrlPathConditionParameters.
- * Defines the parameters for the URL path condition.
- *
- */
-export interface UrlPathConditionParameters {
-  /**
-   * @member {string} path A URL path for the condition of the delivery rule
-   */
-  path: string;
-  /**
-   * @member {MatchType} matchType The match type for the condition of the
-   * delivery rule. Possible values include: 'Literal', 'Wildcard'
-   */
-  matchType: MatchType;
-}
-
-/**
- * @interface
- * An interface representing DeliveryRuleUrlPathCondition.
- * Defines the URL path condition for the delivery rule.
- *
- */
-export interface DeliveryRuleUrlPathCondition {
-  /**
-   * @member {string} name Polymorphic Discriminator
-   */
-  name: "UrlPath";
-  /**
-   * @member {UrlPathConditionParameters} parameters Defines the parameters for
-   * the condition.
-   */
-  parameters: UrlPathConditionParameters;
-}
-
-/**
- * @interface
- * An interface representing UrlFileExtensionConditionParameters.
- * Defines the parameters for the URL file extension condition.
- *
- */
-export interface UrlFileExtensionConditionParameters {
-  /**
-   * @member {string[]} extensions A list of extensions for the condition of
-   * the delivery rule.
-   */
-  extensions: string[];
-}
-
-/**
- * @interface
- * An interface representing DeliveryRuleUrlFileExtensionCondition.
- * Defines the URL file extension condition for the delivery rule.
- *
- */
-export interface DeliveryRuleUrlFileExtensionCondition {
-  /**
-   * @member {string} name Polymorphic Discriminator
-   */
-  name: "UrlFileExtension";
-  /**
-   * @member {UrlFileExtensionConditionParameters} parameters Defines the
-   * parameters for the condition.
-   */
-  parameters: UrlFileExtensionConditionParameters;
-}
-
-/**
- * @interface
- * An interface representing CacheExpirationActionParameters.
- * Defines the parameters for the cache expiration action.
- *
- */
-export interface CacheExpirationActionParameters {
-  /**
-   * @member {CacheBehavior} cacheBehavior Caching behavior for the requests
-   * that include query strings. Possible values include: 'BypassCache',
-   * 'Override', 'SetIfMissing'
-   */
-  cacheBehavior: CacheBehavior;
-  /**
-   * @member {string} [cacheDuration] The duration for which the the content
-   * needs to be cached. Allowed format is [d.]hh:mm:ss
-   */
-  cacheDuration?: string;
-}
-
-/**
- * @interface
- * An interface representing DeliveryRuleCacheExpirationAction.
- * Defines the cache expiration action for the delivery rule.
- *
- */
-export interface DeliveryRuleCacheExpirationAction {
-  /**
-   * @member {string} name Polymorphic Discriminator
-   */
-  name: "CacheExpiration";
-  /**
-   * @member {CacheExpirationActionParameters} parameters Defines the
-   * parameters for the action.
-   */
-  parameters: CacheExpirationActionParameters;
 }
 
 /**
@@ -699,7 +501,7 @@ export interface ProxyResource extends Resource {
  * @interface
  * An interface representing CustomDomain.
  * Friendly domain name mapping to the endpoint hostname that the customer
- * provides for branding purposes, e.g. www.consoto.com.
+ * provides for branding purposes, e.g. www.contoso.com.
  *
  * @extends ProxyResource
  */
@@ -987,7 +789,7 @@ export interface Operation {
  */
 export interface CidrIpAddress {
   /**
-   * @member {string} [baseIpAddress] Ip adress itself.
+   * @member {string} [baseIpAddress] IP address itself.
    */
   baseIpAddress?: string;
   /**
@@ -1037,7 +839,7 @@ export interface EdgeNode extends ProxyResource {
 /**
  * @interface
  * An interface representing ErrorResponse.
- * Error reponse indicates CDN service is not able to process the incoming
+ * Error response indicates CDN service is not able to process the incoming
  * request. The reason is provided in the error message.
  *
  */
@@ -1102,7 +904,7 @@ export interface CdnManagementClientOptions extends AzureServiceClientOptions {
  * @interface
  * An interface representing the ProfileListResult.
  * Result of the request to list profiles. It contains a list of profile
- * objects and a URL link to get the the next set of results.
+ * objects and a URL link to get the next set of results.
  *
  * @extends Array<Profile>
  */
@@ -1133,7 +935,7 @@ export interface ResourceUsageListResult extends Array<ResourceUsage> {
  * @interface
  * An interface representing the EndpointListResult.
  * Result of the request to list endpoints. It contains a list of endpoint
- * objects and a URL link to get the the next set of results.
+ * objects and a URL link to get the next set of results.
  *
  * @extends Array<Endpoint>
  */
@@ -1212,11 +1014,11 @@ export interface EdgenodeResult extends Array<EdgeNode> {
 /**
  * Defines values for SkuName.
  * Possible values include: 'Standard_Verizon', 'Premium_Verizon', 'Custom_Verizon',
- * 'Standard_Akamai', 'Standard_ChinaCdn', 'Standard_Microsoft'
+ * 'Standard_Akamai', 'Standard_ChinaCdn'
  * @readonly
  * @enum {string}
  */
-export type SkuName = 'Standard_Verizon' | 'Premium_Verizon' | 'Custom_Verizon' | 'Standard_Akamai' | 'Standard_ChinaCdn' | 'Standard_Microsoft';
+export type SkuName = 'Standard_Verizon' | 'Premium_Verizon' | 'Custom_Verizon' | 'Standard_Akamai' | 'Standard_ChinaCdn';
 
 /**
  * Defines values for ProfileResourceState.
@@ -1302,22 +1104,6 @@ export type CustomHttpsProvisioningSubstate = 'SubmittingDomainControlValidation
  * @enum {string}
  */
 export type ResourceType = 'Microsoft.Cdn/Profiles/Endpoints';
-
-/**
- * Defines values for MatchType.
- * Possible values include: 'Literal', 'Wildcard'
- * @readonly
- * @enum {string}
- */
-export type MatchType = 'Literal' | 'Wildcard';
-
-/**
- * Defines values for CacheBehavior.
- * Possible values include: 'BypassCache', 'Override', 'SetIfMissing'
- * @readonly
- * @enum {string}
- */
-export type CacheBehavior = 'BypassCache' | 'Override' | 'SetIfMissing';
 
 /**
  * Contains response data for the list operation.
@@ -2102,25 +1888,6 @@ export type CustomDomainsListByEndpointNextResponse = CustomDomainListResult & {
  * Contains response data for the checkNameAvailability operation.
  */
 export type CheckNameAvailabilityResponse = CheckNameAvailabilityOutput & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: CheckNameAvailabilityOutput;
-    };
-};
-
-/**
- * Contains response data for the checkNameAvailabilityWithSubscription operation.
- */
-export type CheckNameAvailabilityWithSubscriptionResponse = CheckNameAvailabilityOutput & {
   /**
    * The underlying HTTP response.
    */
