@@ -73,35 +73,6 @@ class CdnManagementClient extends CdnManagementClientContext {
   }
 
   /**
-   * Check the availability of a resource name. This is needed for resources where name is globally
-   * unique, such as a CDN endpoint.
-   * @param name The resource name to validate.
-   * @param [options] The optional parameters
-   * @returns Promise<Models.CheckNameAvailabilityWithSubscriptionResponse>
-   */
-  checkNameAvailabilityWithSubscription(name: string, options?: msRest.RequestOptionsBase): Promise<Models.CheckNameAvailabilityWithSubscriptionResponse>;
-  /**
-   * @param name The resource name to validate.
-   * @param callback The callback
-   */
-  checkNameAvailabilityWithSubscription(name: string, callback: msRest.ServiceCallback<Models.CheckNameAvailabilityOutput>): void;
-  /**
-   * @param name The resource name to validate.
-   * @param options The optional parameters
-   * @param callback The callback
-   */
-  checkNameAvailabilityWithSubscription(name: string, options: msRest.RequestOptionsBase, callback: msRest.ServiceCallback<Models.CheckNameAvailabilityOutput>): void;
-  checkNameAvailabilityWithSubscription(name: string, options?: msRest.RequestOptionsBase | msRest.ServiceCallback<Models.CheckNameAvailabilityOutput>, callback?: msRest.ServiceCallback<Models.CheckNameAvailabilityOutput>): Promise<Models.CheckNameAvailabilityWithSubscriptionResponse> {
-    return this.sendOperationRequest(
-      {
-        name,
-        options
-      },
-      checkNameAvailabilityWithSubscriptionOperationSpec,
-      callback) as Promise<Models.CheckNameAvailabilityWithSubscriptionResponse>;
-  }
-
-  /**
    * Check if the probe path is a valid path and the file can be accessed. Probe path is the path to
    * a file hosted on the origin server to help accelerate the delivery of dynamic content via the
    * CDN endpoint. This path is relative to the origin path specified in the endpoint configuration.
@@ -137,38 +108,6 @@ const serializer = new msRest.Serializer(Mappers);
 const checkNameAvailabilityOperationSpec: msRest.OperationSpec = {
   httpMethod: "POST",
   path: "providers/Microsoft.Cdn/checkNameAvailability",
-  queryParameters: [
-    Parameters.apiVersion
-  ],
-  headerParameters: [
-    Parameters.acceptLanguage
-  ],
-  requestBody: {
-    parameterPath: {
-      name: "name"
-    },
-    mapper: {
-      ...Mappers.CheckNameAvailabilityInput,
-      required: true
-    }
-  },
-  responses: {
-    200: {
-      bodyMapper: Mappers.CheckNameAvailabilityOutput
-    },
-    default: {
-      bodyMapper: Mappers.ErrorResponse
-    }
-  },
-  serializer
-};
-
-const checkNameAvailabilityWithSubscriptionOperationSpec: msRest.OperationSpec = {
-  httpMethod: "POST",
-  path: "subscriptions/{subscriptionId}/providers/Microsoft.Cdn/checkNameAvailability",
-  urlParameters: [
-    Parameters.subscriptionId
-  ],
   queryParameters: [
     Parameters.apiVersion
   ],
