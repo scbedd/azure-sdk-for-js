@@ -159,7 +159,7 @@ jobs:
       - task: PublishTestResults@2
         inputs:
           testResultsFiles: '**/test-results.xml'
-          testRunTitle: ${{ format('{0} Node $(node.version)', $(os.name)) }}
+          testRunTitle: '$(os.name) Node $(node.version)'
         condition: succeededOrFailed()
         displayName: 'Publish test results'
     
