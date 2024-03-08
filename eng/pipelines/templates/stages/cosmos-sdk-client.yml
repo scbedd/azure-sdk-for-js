@@ -59,6 +59,7 @@ extends:
                   GenerateVMJobs: true
         variables:
           - template: /eng/pipelines/templates/variables/globals.yml@self
+          - template: /eng/pipelines/templates/variables/image.yml@self
 
       - template: /eng/pipelines/templates/stages/archetype-sdk-tests-isolated.yml@self
         parameters:
