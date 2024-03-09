@@ -14,7 +14,7 @@
       },
       "macos-11": {
         "OSVmImage": "env:MACVMIMAGE",
-        "Pool": "env:MACVPOOL"
+        "Pool": "env:MACPOOL"
       }
     },
     "NodeTestVersion": [
